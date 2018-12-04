@@ -1,0 +1,65 @@
+\documentclass[page number]{beamer}
+\usetheme[sectionpage=none,numbering=fraction,progressbar=foot]{metropolis}
+
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{positioning,shapes,fit}
+\usepackage{xcolor}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\makeatletter
+\makeatother
+
+\setcounter{tocdepth}{1} % remove subsection from table of contents
+
+% colors
+\definecolor{mDarkRed}{HTML}{6F1616}
+\definecolor{mDarkGreen}{HTML}{106235}
+\definecolor{mTeal}{HTML}{112233}
+\definecolor{mBlack}{HTML}{000000}
+\setbeamercolor{normal text}{fg=mTeal}
+\setbeamercolor{alerted text}{fg=mDarkRed}
+\setbeamercolor{example text}{fg=mDarkGreen}
+\setbeamercolor{title separator}{fg=purple,bg=mBlack}
+
+\definecolor{spec}{HTML}{6F1616}
+\definecolor{prog}{HTML}{106235}
+
+\def\outline{
+  \begin{frame}[plain,noframenumbering]
+    \frametitle{Outline}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+
+\begin{document}
+\title[Pretty Big Step]{Pretty-Big-Step Semantics}
+
+\author[Aur\`ele Barri\`ere]{Aur\`ele Barri\`ere}
+
+\date{\textbf{December 7, 2018}}
+
+\def\outline{
+  \begin{frame}[plain,noframenumbering]
+    \frametitle{Outline}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{frame}[plain,noframenumbering]
+  \vspace{-2cm}
+  \maketitle
+  \vspace{-4cm}
+\end{frame}
+
+%% \metroset{sectionpage=none}
+
+%% \metroset{sectionpage=progressbar}
+
+\begin{frame}{Test}
+  Test
+\end{frame}
+
+\end{document}
