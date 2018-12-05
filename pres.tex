@@ -58,8 +58,89 @@
 
 %% \metroset{sectionpage=progressbar}
 
-\begin{frame}{Test}
-  Test
+\begin{frame}{Pretty-Big-Step Semantics}
+  \begin{itemize}
+  \item Operational Semantics.
+  \item Inspired by Big-Step Semantics.
+  \item Choosing a Semantics' style is about the way of writing the rules and doing the proofs, not expressivity.
+  \end{itemize}
+  \vfill
+  \begin{alertblock}{Small-Step Semantics}
+    Step: $(\mathit{code},\mathit{State})\rightarrow(\mathit{code},\mathit{State})$.
+    Many steps until final configuration.
+    TODO: Sequence example
+  \end{alertblock}
+  \vfill
+  \begin{exampleblock}{Big-Step Semantics}
+    One step: $(\mathit{code},\mathit{State})\rightarrow\mathit{State}$.
+    TODO:Sequence example.
+  \end{exampleblock}
+  
+\end{frame}
+
+\begin{frame}{Why Pretty-Big-Step Semantics?}
+  \begin{block}{Big-Step is still used}
+    \begin{itemize}
+    \item 17 out of 40 operational semantics in recent conferences.
+    \item Cost semantics, informal description.
+    \item Some proofs need to be done on big-step semantics.
+    \end{itemize}
+  \end{block}
+  \vfill
+  \begin{alertblock}{Drawbacks of Big-Step Semantics}
+    Redundancy when adding new constructs.\\
+    For instance: divergence, errors, control-flow exceptions\dots
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Duplicating rules in Big-Step Semantics}
+  The example of divergent behavior.\\
+  TODO: FIG1\\
+  One factorization possible.
+  
+\end{frame}
+
+\begin{frame}{Pretty-Big Step Presentation}
+  \begin{exampleblock}{Properties}
+    \begin{itemize}
+    \item less rules.
+    \item no duplication of premises.
+    \item use coinduction for diverging behaviors.
+    \item add intermediate terms
+    \end{itemize}
+  \end{exampleblock}
+  \vfill
+  \begin{block}{Example: $\lambda$-calculus}
+    TODO: grammar
+  \end{block}
+\end{frame}
+
+\begin{frame}{Evaluating Application}
+  TODO: big step and pretty big step comparison.
+  Intermediate terms.
+  TODO: overlapping without intermediate term
+\end{frame}
+
+
+\begin{frame}{Exceptions}
+  behavior
+\end{frame}
+
+\begin{frame}{Divergence}
+  outcome
+\end{frame}
+
+\begin{frame}{Coinduction}
+  TODO: Chlipala examples
+\end{frame}
+
+\begin{frame}{Errors}
+\end{frame}
+
+\begin{frame}{Typing}
+\end{frame}
+
+\begin{frame}{Typing Soundness}
 \end{frame}
 
 \end{document}
