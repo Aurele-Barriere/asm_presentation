@@ -1,4 +1,4 @@
-\documentclass[page number]{beamer}
+\documentclass[page number,dvipsnames]{beamer}
 \usetheme[sectionpage=none,numbering=fraction,progressbar=foot]{metropolis}
 
 \usepackage{pgf,tikz}
@@ -7,6 +7,10 @@
 \usepackage{xcolor}
 \usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{lstcoq}
+
 
 \makeatletter
 \makeatother
@@ -25,6 +29,19 @@
 
 \definecolor{spec}{HTML}{6F1616}
 \definecolor{prog}{HTML}{106235}
+
+
+\lstset{language=[Objective]{Caml},
+                basicstyle=\ttfamily\tiny,
+                keywordstyle=\color{RedViolet}\ttfamily,
+                stringstyle=\color{Violet}\ttfamily,
+                commentstyle=\color{MidnightBlue}\ttfamily,
+                morecomment=[l][\color{magenta}]{\#},
+                morekeywords={bool, list, int},
+                emph={%  
+                  Inductive, Lemma%
+                },emphstyle={\color{Maroon}}
+}
 
 \def\outline{
   \begin{frame}[plain,noframenumbering]
@@ -176,20 +193,155 @@
 \end{frame}
 
 \begin{frame}{Divergence}
-  outcome
+  \center
+  \includegraphics[scale=0.3]{div_rules.png}
 \end{frame}
 
-\begin{frame}{Coinduction}
-  TODO: Chlipala examples
+\begin{frame}[fragile]{Coinduction}
+  \begin{lstlisting}[language=Coq]
+Section stream.
+  Variable A : Type.
+
+CoInductive stream : Type :=
+  | Cons : A -> stream -> stream.
+End stream.
+  \end{lstlisting}
+  \vfill
+  \begin{alertblock}{Guardedness Condition}
+    Every co-recursive call must be guarded by a constructor.
+  \end{alertblock}
+  \vfill
+  \url{http://adam.chlipala.net/cpdt/html/Coinductive.html}
 \end{frame}
 
-\begin{frame}{Errors}
+\begin{frame}{Properties}
+  \center
+  \includegraphics[scale=0.3]{lemma1.png}
+  \vfill
+  \includegraphics[scale=0.3]{lemma2.png}
+  \vfill
+  \includegraphics[scale=0.3]{lemma3.png}
+  \vfill
+  \includegraphics[scale=0.3]{thm1.png}
+  \vfill
+  \includegraphics[scale=0.3]{lemma4.png}
 \end{frame}
 
-\begin{frame}{Typing}
+\begin{frame}{Errors and Tying Soundness}
+  \begin{block}{Generic Error Rule}
+    \center
+    \includegraphics[scale=0.3]{error.png}
+  \end{block}
+  \vfill
+  \begin{exampleblock}{Type Soundness}
+    \center
+    \includegraphics[scale=0.3]{thm2.png}
+  \end{exampleblock}
 \end{frame}
 
-\begin{frame}{Typing Soundness}
+\begin{frame}{Traces}
+  \center
+  \includegraphics[scale=0.25]{traces.png}
+  \vfill
+  \includegraphics[scale=0.3]{lemma5.png}
+\end{frame}
+
+\begin{frame}{Scaling Up}
+  \begin{block}{Side-effects}
+    \center
+    \includegraphics[scale=0.3]{side_effect.png}
+  \end{block}
+  \vfill
+  \begin{block}{Other Functionnalities}
+    \begin{itemize}
+    \item For Loops
+    \item Tuples
+    \item Generic Abort Rule
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
+\begin{frame}{Formalization of core-Caml}
+  \begin{exampleblock}{Features}
+    \begin{itemize}
+    \item Booleans, Integers, Tuples, Algebraic Data Types, records
+    \item Functions, Recursive functions, applications, sequences
+    \item Conditionals, for loops, while loops
+    \item Pattern-matching, let-bindings, assertions
+    \end{itemize}
+  \end{exampleblock}
+  \vfill
+  \begin{alertblock}{Missing Features}
+    \begin{itemize}
+    \item Floats
+    \item Mutual Recursion
+    \item With construct for records
+    \item Arrays
+    \item Objects, Modules
+    \end{itemize}
+  \end{alertblock}
+
+\end{frame}
+
+\begin{frame}[fragile]{Formalization of core-Caml}
+  \begin{center}
+    \includegraphics[scale=0.3]{tokens.png}
+  \end{center}
+  \vfill
+  \begin{lstlisting}
+(** Grammar of outcomes *)
+Inductive out :=
+  | out_beh : mem -> beh -> out
+  | out_div : out.
+
+(** Grammar of extended terms *)
+Inductive ext : Type :=
+  | ext_trm : trm -> ext
+  | ext_binary_1 : prim -> out -> trm -> ext
+  | ext_binary_2 : prim -> val -> out -> ext
+  | ext_app_1 : out -> trm -> ext
+  ...
+
+Lemma soundness : forall t T, 
+  typing empty t T -> ~ red t out_err.
+  \end{lstlisting}
+  \vfill
+  \url{http://www.chargueraud.org/research/2012/pretty/}
+\end{frame}
+
+\begin{frame}{Overview}
+  European Symposium of Programming, 2013. 43 citations.
+  \vfill
+  \begin{exampleblock}{Further Works}
+    \begin{itemize}
+    \item A trusted mechanised JavaScript specification, 2014
+    \item Certified Abstract Interpretation with Pretty-Big-Step Semantics, 2015
+    \item Functional Big-Step Semantics, 2016
+    \end{itemize}
+  \end{exampleblock}
+  \vfill
+  \begin{alertblock}{Questions}
+    \begin{itemize}
+    \item Determinacy lemma?
+    \item What's specific to Pretty-Big-Step?
+    \item Typing Complexity?
+    \item Standard notion of Coinduction.
+    \end{itemize}
+  \end{alertblock}
+
+\end{frame}
+
+\begin{frame}{Conclusion}
+  \begin{itemize}
+  \item New operational Semantics.
+  \item Inspired by and Equivalent to Big-Step.
+  \item Less rules, more factorization.
+  \item Adding functionnalities is easier.
+  \item Implemented a full language (core-Ocaml).
+  \item Size reduction of 40\%.
+  \item Co-Inductive proofs cannot be done in Coq yet.
+  \end{itemize}
 \end{frame}
 
 \end{document}
