@@ -66,17 +66,26 @@
   \end{itemize}
   \vfill
   \begin{alertblock}{Small-Step Semantics}
-    Step: $(\mathit{code},\mathit{State})\rightarrow(\mathit{code},\mathit{State})$.
+    Step: $(\mathit{code},\mathit{State})\rightarrow(\mathit{code},\mathit{State})$.\\
     Many steps until final configuration.
-    TODO: Sequence example
   \end{alertblock}
   \vfill
   \begin{exampleblock}{Big-Step Semantics}
     One step: $(\mathit{code},\mathit{State})\rightarrow\mathit{State}$.
-    TODO:Sequence example.
   \end{exampleblock}
   
 \end{frame}
+
+\begin{frame}{Small-step Reminder}
+  \center
+  \includegraphics[scale=0.2]{smallstep.png}
+\end{frame}
+
+\begin{frame}{Big-step Reminder}
+  \center
+  \includegraphics[scale=0.2]{bigstep.png}
+\end{frame}
+
 
 \begin{frame}{Why Pretty-Big-Step Semantics?}
   \begin{block}{Big-Step is still used}
@@ -95,8 +104,8 @@
 
 \begin{frame}{Duplicating rules in Big-Step Semantics}
   The example of divergent behavior.\\
-  TODO: FIG1\\
-  One factorization possible.
+  \center
+  \includegraphics[scale=0.25]{duplicates.png}
   
 \end{frame}
 
@@ -111,19 +120,59 @@
   \end{exampleblock}
   \vfill
   \begin{block}{Example: $\lambda$-calculus}
-    TODO: grammar
+    \center
+    \includegraphics[scale=0.3]{lambda.png}
   \end{block}
 \end{frame}
 
 \begin{frame}{Evaluating Application}
-  TODO: big step and pretty big step comparison.
-  Intermediate terms.
-  TODO: overlapping without intermediate term
+  \begin{alertblock}{Big-Step}
+    \center
+    \includegraphics[scale=0.3]{bigstep_betared.png}
+  \end{alertblock}
+  \vfill
+  \begin{block}{First Attempt at Pretty-Big-Step}
+    \center
+    \includegraphics[scale=0.3]{first_attempt_betared.png}
+  \end{block}
+  \begin{alertblock}{Overlapping Problem}
+    Evaluation isn't syntax-directed.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Intermediate Terms}
+  \begin{block}{Term Syntax}
+    \center
+    \includegraphics[scale=0.3]{interm.png}
+  \end{block}
+  \vfill
+  \begin{exampleblock}{Non-overlapping Semantics}
+    \center
+    \includegraphics[scale=0.3]{interm_step.png}
+  \end{exampleblock}
+\end{frame}
+
+\def\app{\mathbf{app}}
+\def\abs{\mathbf{abs}}
+\begin{frame}{Example}
+  Evaluation of $(\lambda y.~ (y ~0))~ (\lambda x.~ x + 2)$.\\
+  $\app~(\abs~ y~ (\app~ y~ 0))~(\abs~ x~ (x+2)))$.
+  \vfill
 \end{frame}
 
 
 \begin{frame}{Exceptions}
-  behavior
+  \begin{block}{Generalized Behavior and Extended Intermediate Terms}
+    \begin{center}
+    \includegraphics[scale=0.3]{behavior.png}\hfill
+    \includegraphics[scale=0.3]{expr_ex.png}
+    \end{center}
+  \end{block}
+  \vfill
+  \begin{exampleblock}{Pretty-Big-Step Rules}
+    \center
+    \includegraphics[scale=0.3]{ex_rules.png}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}{Divergence}
